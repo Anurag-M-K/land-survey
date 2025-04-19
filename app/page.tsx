@@ -31,10 +31,10 @@ export default function Home() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative mb-5 z-10 pt-32 text-center text-white"
+          className="relative mb-5 z-10 pt-32 mt-10 text-center text-white"
         >
           <h1 className="text-6xl font-bold mb-4 my-6">MK Land Survey</h1>
-          <p className="text-xl text-gray-300">Precision Mapping for Your Future</p>
+          {/* <p className="text-xl hidden lg:flex flex-col text-gray-300">Precision Mapping for Your Future</p> */}
         </motion.div>
       </section>
 
@@ -43,7 +43,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="min-h-screen py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-black/20 backdrop-blur-sm"
+        className="min-h-screen py-16 pt-90 sm:py-24 px-4 sm:px-6 lg:px-8 bg-black/20 backdrop-blur-sm"
       >
         <div className="max-w-7xl mx-auto">
           <div className="space-y-4 mb-12 sm:mb-24 text-center">
