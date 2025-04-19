@@ -133,7 +133,7 @@ const services = [
     description: "Professional subdivision and partitioning of land parcels."
   },
   {
-    title: "Condominium Surveys",
+    title: "Condoor Surveys",
     description: "Specialized surveys for condominium development and planning."
   },
   {
