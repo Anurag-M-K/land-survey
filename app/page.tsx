@@ -1,41 +1,70 @@
 'use client'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls, PerspectiveCamera, useGLTF, Environment } from '@react-three/drei'
 import { motion } from 'framer-motion'
-
-useGLTF.preload('/models/total-station.glb')
-useGLTF.preload('/models/surveyor.glb')
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
-      {/* Hero Section with 3D Terrain */}
-      <section className="h-screen relative">
-        <Canvas 
-          className="absolute inset-0"
-          shadows
-          camera={{ position: [8, 5, 8], fov: 45 }}
-          gl={{ antialias: true }}
-        >
-          <PerspectiveCamera makeDefault position={[8, 5, 8]} />
-          <OrbitControls 
-            enableZoom={false} 
-            autoRotate 
-            autoRotateSpeed={0.5}
-            maxPolarAngle={Math.PI / 2.5} 
-            minPolarAngle={Math.PI / 4}
-          />
-          <Scene />
-        </Canvas>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black">
+      {/* Hero Section */}
+      <section className="h-screen relative flex items-center justify-center overflow-hidden">
+        {/* Animated background gradient */}
+        <div className="absolute inset-0 bg-[url('/images/survey-bg.jpg')] bg-cover bg-center opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-blue-600/20 animate-gradient"></div>
+        </div>
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative mb-5 z-10 pt-32 mt-10 text-center text-white"
+          transition={{ duration: 1 }}
+          className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto"
         >
-          <h1 className="text-6xl font-bold mb-4 my-6">MK Land Survey</h1>
-          {/* <p className="text-xl hidden lg:flex flex-col text-gray-300">Precision Mapping for Your Future</p> */}
+          <motion.h1 
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ 
+              type: "spring",
+              stiffness: 100,
+              delay: 0.2 
+            }}
+            className="text-6xl sm:text-8xl font-bold mb-8 
+                     [text-shadow:_0_2px_0_rgb(0_0_0_/_40%),_0_4px_12px_rgb(0_0_0_/_20%)]
+                     transform-gpu hover:scale-105 transition-all duration-300
+                     bg-clip-text text-transparent bg-gradient-to-r from-white via-green-300 to-white
+                     animate-gradient-x"
+          >
+            MK Land Survey
+          </motion.h1>
+          <motion.p 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="text-xl sm:text-3xl text-gray-300 max-w-2xl mx-auto mb-12
+                     [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]
+                     animate-pulse-slow"
+          >
+            Precision Mapping for Your Future
+          </motion.p>
+        
+          <motion.a
+            href="tel:+919605257629"
+            whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgb(34 197 94 / 0.5)" }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-2 px-12 py-4 bg-gradient-to-r from-green-500 to-green-600 
+                     text-white text-lg rounded-full font-semibold 
+                     hover:from-green-600 hover:to-green-700
+                     transition-all duration-300 transform
+                     shadow-[0_0_15px_rgb(34_197_94_/_0.3)]
+                     border border-green-400/30"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+              <path fillRule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clipRule="evenodd" />
+            </svg>
+            Call Now
+          </motion.a>
         </motion.div>
+
+        {/* Decorative elements */}
+        <div className="absolute -bottom-1/2 left-0 w-full h-full 
+                      bg-gradient-to-t from-gray-900 to-transparent opacity-90"></div>
       </section>
 
       {/* Services Section */}
@@ -43,7 +72,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="min-h-screen py-16 pt-90 sm:py-24 px-4 sm:px-6 lg:px-8 bg-black/20 backdrop-blur-sm"
+        className="min-h-screen py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-black/20 backdrop-blur-sm"
       >
         <div className="max-w-7xl mx-auto">
           <div className="space-y-4 mb-12 sm:mb-24 text-center">
@@ -83,197 +112,6 @@ export default function Home() {
         </div>
       </motion.section>
     </div>
-  )
-}
-
-// Enhanced scene component
-function Scene() {
-  return (
-    <group>
-      <ambientLight intensity={0.3} />
-      <directionalLight 
-        position={[5, 8, 3]} 
-        intensity={1.5} 
-        castShadow
-      />
-      <TerrainWithGrid />
-      <SurveyEquipment position={[2, 0, -1]} />
-      <Surveyor position={[-1.5, 0, 1]} />
-      <Trees />
-      <Buildings />
-      <Environment preset="sunset" />
-      <fog attach="fog" args={['#1f2937', 5, 25]} />
-    </group>
-  )
-}
-
-function TerrainWithGrid() {
-  return (
-    <group>
-      {/* Main terrain */}
-      <mesh 
-        rotation={[-Math.PI / 2, 0, 0]} 
-        position={[0, -0.5, 0]}
-        receiveShadow
-      >
-        <planeGeometry args={[40, 40, 64, 64]} />
-        <meshStandardMaterial 
-          color="#4a9553"
-          wireframe
-          metalness={0.1}
-          roughness={0.8}
-        />
-      </mesh>
-      
-      {/* Survey grid overlay */}
-      <mesh 
-        rotation={[-Math.PI / 2, 0, 0]} 
-        position={[0, -0.48, 0]}
-      >
-        <planeGeometry args={[40, 40, 20, 20]} />
-        <meshStandardMaterial 
-          color="#ffffff"
-          wireframe
-          opacity={0.1}
-          transparent
-          metalness={0}
-          roughness={1}
-        />
-      </mesh>
-    </group>
-  )
-}
-
-function Trees() {
-  return (
-    <group>
-      {[...Array(10)].map((_, i) => (
-        <group 
-          key={i} 
-          position={[
-            Math.sin(i * Math.PI * 2 / 10) * 8,
-            0,
-            Math.cos(i * Math.PI * 2 / 10) * 8
-          ]}
-        >
-          {/* Tree trunk */}
-          <mesh position={[0, 0.75, 0]}>
-            <cylinderGeometry args={[0.2, 0.2, 1.5, 8]} />
-            <meshStandardMaterial color="#5c4033" />
-          </mesh>
-          {/* Tree top */}
-          <mesh position={[0, 1.75, 0]}>
-            <coneGeometry args={[1, 2, 8]} />
-            <meshStandardMaterial color="#2d5a27" />
-          </mesh>
-        </group>
-      ))}
-    </group>
-  )
-}
-
-function Buildings() {
-  return (
-    <group>
-      {[...Array(5)].map((_, i) => (
-        <group
-          key={i}
-          position={[
-            Math.sin(i * Math.PI * 2 / 5) * 15,
-            0,
-            Math.cos(i * Math.PI * 2 / 5) * 15
-          ]}
-          rotation={[0, Math.random() * Math.PI, 0]}
-        >
-          {/* Building base */}
-          <mesh position={[0, 2 + Math.random() * 3, 0]} castShadow>
-            <boxGeometry args={[3, 4 + Math.random() * 4, 3]} />
-            <meshStandardMaterial 
-              color={`#${Math.floor(Math.random()*16777215).toString(16)}`} 
-              metalness={0.2}
-              roughness={0.8}
-            />
-          </mesh>
-          {/* Windows */}
-          <Windows position={[0, 2, 0]} />
-        </group>
-      ))}
-    </group>
-  )
-}
-
-function Windows({ position }:{position:any}) {
-  return (
-    <group position={position}>
-      {[...Array(6)].map((_, i) => (
-        <mesh 
-          key={i} 
-          position={[
-            1.51, // Offset from building surface
-            i * 0.8 - 1.5, // Vertical spacing
-            0
-          ]}
-        >
-          <planeGeometry args={[0.5, 0.5]} />
-          <meshStandardMaterial 
-            color="#88ccff"
-            emissive="#88ccff"
-            emissiveIntensity={0.2}
-            metalness={1}
-            roughness={0}
-          />
-        </mesh>
-      ))}
-    </group>
-  )
-}
-
-function SurveyEquipment({ position }: { position: [number, number, number] }) {
-  return (
-    <group position={position}>
-      {/* Tripod */}
-      <mesh position={[0, 0.75, 0]}>
-        <cylinderGeometry args={[0.05, 0.05, 1.5, 8]} />
-        <meshStandardMaterial color="#666666" />
-      </mesh>
-      {/* Total Station body */}
-      <mesh position={[0, 1.5, 0]}>
-        <boxGeometry args={[0.3, 0.3, 0.3]} />
-        <meshStandardMaterial color="#2c2c2c" metalness={0.8} roughness={0.2} />
-      </mesh>
-      {/* Lens */}
-      <mesh position={[0.2, 1.5, 0]} rotation={[0, Math.PI / 2, 0]}>
-        <cylinderGeometry args={[0.1, 0.1, 0.2, 16]} />
-        <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.1} />
-      </mesh>
-    </group>
-  )
-}
-
-function Surveyor({ position }: { position: [number, number, number] }) {
-  return (
-    <group position={position}>
-      {/* Body */}
-      <mesh position={[0, 1, 0]}>
-        <capsuleGeometry args={[0.25, 1, 8]} />
-        <meshStandardMaterial color="#2c4a7c" />
-      </mesh>
-      {/* Head */}
-      <mesh position={[0, 1.8, 0]}>
-        <sphereGeometry args={[0.2, 16, 16]} />
-        <meshStandardMaterial color="#ffd3b6" />
-      </mesh>
-      {/* Safety Vest */}
-      <mesh position={[0, 1.1, 0.15]}>
-        <boxGeometry args={[0.5, 0.6, 0.1]} />
-        <meshStandardMaterial color="#f59e0b" />
-      </mesh>
-      {/* Helmet */}
-      <mesh position={[0, 2, 0]}>
-        <cylinderGeometry args={[0.2, 0.22, 0.2, 16]} />
-        <meshStandardMaterial color="#fbbf24" />
-      </mesh>
-    </group>
   )
 }
 
