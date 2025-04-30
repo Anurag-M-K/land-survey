@@ -1,5 +1,8 @@
 'use client'
 import { motion } from 'framer-motion'
+import TestimonialSection from './TestimonialSection'
+import Footer from './Footer'
+
 const services = [
   {
     icon: "M15 7h3a5 5 0 015 5 5 5 0 01-5 5m-5-5h5M4 7h3m8 8h3m-12 4l6-6m0 0l6-6m-6 6L4 7m6 6l6 6",
@@ -32,6 +35,7 @@ const services = [
     description: "Complete assistance with land registration processes, including documentation and legal compliance verification."
   }
 ]
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black">
@@ -40,6 +44,10 @@ export default function Home() {
         {/* Background Image */}
         <div className="absolute inset-0 bg-[url('/images/survey-bg.jpg')] bg-cover bg-center opacity-20"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-blue-600/20 animate-gradient"></div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-10 left-10 w-32 h-32 bg-green-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
 
         {/* Content */}
         <motion.div
@@ -85,7 +93,7 @@ export default function Home() {
             transition={{ delay: 0.6 }}
             className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto mb-12"
           >
-            We specialize in providing accurate and reliable land surveying services for residential, commercial, and industrial projects. Trust us for boundary surveys, topographic mapping, and more.
+            We provide professional land surveying services for residential, commercial, and industrial projects. Trust us for boundary surveys, topographic mapping, and more.
           </motion.p>
 
           {/* Call to Action Buttons */}
@@ -139,9 +147,6 @@ export default function Home() {
             </motion.a>
           </div>
         </motion.div>
-
-        {/* Decorative Elements */}
-        <div className="absolute -bottom-1/2 left-0 w-full h-full bg-gradient-to-t from-gray-900 to-transparent opacity-90"></div>
       </section>
 
       {/* Services Section */}
@@ -150,7 +155,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 lg:px-8"
+        className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 via-gray-900 to-black"
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]"></div>
@@ -222,6 +227,12 @@ export default function Home() {
           </div>
         </div>
       </motion.section>
+
+      {/* Testimonial Section */}
+      <TestimonialSection />
+
+      {/* Footer Section */}
+      <Footer />
     </div>
   )
 }
